@@ -55,7 +55,7 @@ class RegisterActivity : ComponentActivity() {
                     }
                 )
 
-            } // איך לעדכן את פייר בייס auth עם שם פרטי ושם משפחה בזמן רישום
+            }
         }
     }
 }
