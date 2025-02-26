@@ -13,7 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyAndroid"
         tools:targetApi="34">
-
+        <activity
+            android:name=".ui.RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.MyAndroid" />
         <!-- Make LoginActivity the launcher -->
         <activity
             android:name=".ui.LoginActivity"
@@ -22,11 +26,10 @@
             android:theme="@style/Theme.MyAndroid">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- MainActivity should no longer be the launcher -->
+        </activity> <!-- MainActivity should no longer be the launcher -->
         <activity
             android:name=".MainActivity"
             android:exported="true"

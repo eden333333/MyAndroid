@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">MyAndroid</string>
     <string name="login_activity_label">Login</string>
+    <string name="title_activity_register">RegisterActivity</string>
 </resources>
