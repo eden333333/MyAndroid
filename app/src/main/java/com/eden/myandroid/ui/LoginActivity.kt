@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -39,20 +40,8 @@ class LoginActivity : ComponentActivity() {
                                 }
                             }
                         }
-                    },
-                    onRegister = { email, password ->
-                        if (email.isBlank() || password.isBlank()) {
-                            Toast.makeText(this, "Email and Password cannot be empty", Toast.LENGTH_SHORT).show()
-                        } else {
-                            authHelper.registerUser(email, password) { success, error ->
-                                if (success) {
-                                    Toast.makeText(this, "Registration Successful", Toast.LENGTH_SHORT).show()
-                                } else {
-                                    Toast.makeText(this, error ?: "Registration Failed", Toast.LENGTH_SHORT).show()
-                                }
-                            }
-                        }
                     }
+
                 )
             }
         }
@@ -62,10 +51,10 @@ class LoginActivity : ComponentActivity() {
 @Composable
 fun LoginScreen(
     onLogin: (String, String) -> Unit,
-    onRegister: (String, String) -> Unit
 ) {
     var email by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    val context = LocalContext.current
 
     Column(
         modifier = Modifier
@@ -109,13 +98,14 @@ fun LoginScreen(
             Text("Login")
         }
         Spacer(modifier = Modifier.height(8.dp))
-
-        // Register button
         Button(
-            onClick = { onRegister(email, password) },
+            onClick = {
+                val intent = Intent(context, RegisterActivity::class.java);
+                context.startActivity(intent);
+            },
             modifier = Modifier.fillMaxWidth()
-        ) {
-            Text("Register")
+        ){
+            Text("Open Register")
         }
     }
 }
@@ -127,7 +117,6 @@ fun LoginScreenPreview() {
     MyAndroidTheme {
         LoginScreen(
             onLogin = { _, _ -> },
-            onRegister = { _, _ -> }
         )
     }
 }
