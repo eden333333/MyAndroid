@@ -1,4 +1,3 @@
-<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.eden.myandroid">
@@ -20,8 +19,11 @@
         android:theme="@style/Theme.MyAndroid"
         tools:targetApi="34">
 
-
-
+        <activity
+            android:name=".ui.RegisterActivity"
+            android:exported="false"
+            android:label="@string/title_activity_register"
+            android:theme="@style/Theme.MyAndroid" />
 
         <activity
             android:name=".ui.LoginActivity"
@@ -39,7 +41,6 @@
             </intent-filter>
         </activity>
 
-
         <activity
             android:name=".MainActivity"
             android:exported="true"
@@ -50,7 +51,5 @@
             </intent-filter>
         </activity>
 
-
     </application>
-
 </manifest>
