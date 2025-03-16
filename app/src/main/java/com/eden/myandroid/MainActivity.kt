@@ -1,45 +1,37 @@
 package com.eden.myandroid
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import com.eden.myandroid.ui.theme.MyAndroidTheme
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.eden.myandroid.ui.WeatherSearchScreen
+import com.eden.myandroid.data.remote.LocationIQApiService
+import com.eden.myandroid.data.repository.CityRepository
+import com.eden.myandroid.data.repository.WeatherRepository
+import com.eden.myandroid.viewmodel.CityViewModel
+import com.eden.myandroid.viewmodel.CityViewModelFactory
+import com.eden.myandroid.viewmodel.WeatherViewModel
+import com.eden.myandroid.viewmodel.WeatherViewModelFactory
 
 class MainActivity : ComponentActivity() {
+    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val cityRepository = CityRepository(LocationIQApiService.create())
+        val weatherRepository = WeatherRepository()
+
         setContent {
-            MyAndroidTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+            val cityViewModel: CityViewModel = viewModel(factory = CityViewModelFactory(cityRepository))
+            val weatherViewModel: WeatherViewModel = viewModel(factory = WeatherViewModelFactory(weatherRepository))
+
+            Scaffold(modifier = Modifier.fillMaxSize()) {
+                WeatherSearchScreen(cityViewModel, weatherViewModel)
             }
         }
-    }
-}
-
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    MyAndroidTheme {
-        Greeting("Android")
     }
 }
