@@ -1,37 +1,46 @@
 package com.eden.myandroid
-
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
-import androidx.compose.ui.Modifier
+import androidx.compose.runtime.remember
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.eden.myandroid.ui.WeatherSearchScreen
+import androidx.navigation.compose.rememberNavController
 import com.eden.myandroid.data.remote.LocationIQApiService
+import com.eden.myandroid.data.repository.AuthRepository
 import com.eden.myandroid.data.repository.CityRepository
 import com.eden.myandroid.data.repository.WeatherRepository
-import com.eden.myandroid.viewmodel.CityViewModel
+import com.eden.myandroid.navigation.NavGraph
+import com.eden.myandroid.viewmodel.auth.AuthViewModel
 import com.eden.myandroid.viewmodel.CityViewModelFactory
 import com.eden.myandroid.viewmodel.WeatherViewModel
+import com.eden.myandroid.viewmodel.auth.AuthViewModelFactory
+import com.eden.myandroid.viewmodel.CityViewModel
 import com.eden.myandroid.viewmodel.WeatherViewModelFactory
 
+
 class MainActivity : ComponentActivity() {
-    @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        val cityRepository = CityRepository(LocationIQApiService.create())
-        val weatherRepository = WeatherRepository()
-
         setContent {
-            val cityViewModel: CityViewModel = viewModel(factory = CityViewModelFactory(cityRepository))
-            val weatherViewModel: WeatherViewModel = viewModel(factory = WeatherViewModelFactory(weatherRepository))
+            val authRepository = remember { AuthRepository() }
+            val cityRepository = remember { CityRepository(LocationIQApiService.create()) }
+            val weatherRepository = remember { WeatherRepository() }
 
-            Scaffold(modifier = Modifier.fillMaxSize()) {
-                WeatherSearchScreen(cityViewModel, weatherViewModel)
-            }
+            val navController = rememberNavController()
+            val authViewModel: AuthViewModel =
+                viewModel(factory = AuthViewModelFactory(authRepository))
+            val cityViewModel: CityViewModel =
+                viewModel(factory = CityViewModelFactory(cityRepository))
+            val weatherViewModel: WeatherViewModel =
+                viewModel(factory = WeatherViewModelFactory(weatherRepository))
+
+            //  Navigation
+            NavGraph(
+                navController = navController,
+                authViewModel = authViewModel,
+                cityViewModel = cityViewModel,
+                weatherViewModel = weatherViewModel)
         }
     }
 }

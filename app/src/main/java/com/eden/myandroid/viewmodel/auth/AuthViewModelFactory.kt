@@ -1,4 +1,4 @@
-package com.eden.myandroid.viewmodel
+package com.eden.myandroid.viewmodel.auth
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
