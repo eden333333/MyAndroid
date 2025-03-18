@@ -1,4 +1,4 @@
-package com.eden.myandroid.ui
+package com.eden.myandroid.ui.Weather
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
