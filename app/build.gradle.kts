@@ -52,15 +52,21 @@ android {
 dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.2")
+    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.2")
+
     implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.libraries.places:places:3.3.0")
+    implementation("androidx.activity:activity-ktx:1.4.0")
+
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.7.3")
 
     // Compose dependencies
     implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.compose.ui:ui:1.6.0")
     implementation("androidx.compose.material3:material3:1.2.1")
+    implementation("com.google.android.material:material:1.5.0")
+    implementation ("androidx.navigation:navigation-compose:2.7.5")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
@@ -75,6 +81,9 @@ dependencies {
     implementation("com.google.firebase:firebase-auth-ktx:22.1.1")
     implementation("com.google.firebase:firebase-firestore-ktx:24.6.1")
     implementation("com.google.firebase:firebase-storage-ktx:20.3.0")
+
+    implementation(platform("com.google.firebase:firebase-bom:33.10.0"))
+
 
     debugImplementation("androidx.compose.ui:ui-tooling:1.6.0")
     debugImplementation("androidx.compose.ui:ui-test-manifest:1.6.0")
