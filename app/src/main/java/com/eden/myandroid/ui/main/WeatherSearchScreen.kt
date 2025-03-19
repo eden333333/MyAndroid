@@ -18,7 +18,6 @@ import com.eden.myandroid.navigation.Screen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun WeatherSearchScreen(
-    navController: NavController,
     cityViewModel: CityViewModel,
     weatherViewModel: WeatherViewModel,
     paddingValues: PaddingValues
